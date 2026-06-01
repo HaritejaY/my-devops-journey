@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  web-frontend:
+    image: nginx:alpine
+    container_name: web-frontend-srv
+    ports:
+      - "8095:80"
+    networks:
+      - secure-backend-net
+
+  db-backend:
+    image: postgres:alpine
+    container_name: db-backend-srv
+    environment:
+      POSTGRES_USER: devops_user
+      POSTGRES_PASSWORD: supersecretpassword
+      POSTGRES_DB: analytics_db
+    networks:
+      - secure-backend-net
+
+networks:
+  secure-backend-net:
+    driver: bridge
